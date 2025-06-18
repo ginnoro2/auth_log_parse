@@ -3,7 +3,6 @@ import random
 from faker import Faker
 import time
 from database import create_connection
-from encryption import encrypt_data
 import ipaddress
 
 fake = Faker()
@@ -28,7 +27,8 @@ class SSHLogSimulator:
         # 70% success rate
         status = 'success' if random.random() < 0.7 else 'failed'
         
-        encrypted_password = encrypt_data(password)
+        # Store password as BLOB (encoded bytes)
+        password_blob = password.encode('utf-8')
         attempt_details = f"SSH login attempt from {source_ip}"
         
         query = """
@@ -36,7 +36,7 @@ class SSHLogSimulator:
         (timestamp, source_ip, username, encrypted_password, status, attempt_details)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
-        values = (timestamp, source_ip, username, encrypted_password, status, attempt_details)
+        values = (timestamp, source_ip, username, password_blob, status, attempt_details)
         
         try:
             self.cursor.execute(query, values)

@@ -31,6 +31,27 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "test_auth_log.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  test_service:
+    build: .
+    container_name: auth_log_test
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: your_password
+      MYSQL_DATABASE: ssh_logs
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: ["python", "test_auth_log.py"]
+    profiles:
+      - test
 
 volumes:
   mysql_data: 

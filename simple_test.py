@@ -11,7 +11,7 @@ from ssh_log_simulator import SSHLogSimulator
 
 def test_database_connection():
     """Test database connection"""
-    print("🔍 Testing database connection...")
+    print("Testing database connection...")
     
     try:
         connection = create_connection()

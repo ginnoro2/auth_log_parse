@@ -445,7 +445,7 @@ docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT
 4. **Implement log retention policies** for production use
 5. **Add authentication and authorization** for database access
 
-## 📚 Additional Resources
+## Additional Resources 
 
 - [Docker Documentation](https://docs.docker.com/)
 - [MySQL Documentation](https://dev.mysql.com/doc/)

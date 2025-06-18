@@ -19,7 +19,7 @@ def test_database_connection():
     try:
         connection = create_connection()
         if connection is None:
-            print("❌ Failed to connect to database")
+            print("Failed to connect to database")
             return False
         
         cursor = connection.cursor()
@@ -27,15 +27,15 @@ def test_database_connection():
         # Test basic query
         cursor.execute("SELECT VERSION()")
         version = cursor.fetchone()
-        print(f"✅ Connected to MySQL version: {version[0]}")
+        print(f"Connected to MySQL version: {version[0]}")
         
         # Test table exists
         cursor.execute("SHOW TABLES LIKE 'auth_logs'")
         table_exists = cursor.fetchone()
         if table_exists:
-            print("✅ auth_logs table exists")
+            print("auth_logs table exists")
         else:
-            print("❌ auth_logs table does not exist")
+            print("auth_logs table does not exist")
             return False
         
         cursor.close()
@@ -43,12 +43,12 @@ def test_database_connection():
         return True
         
     except Exception as e:
-        print(f"❌ Database connection test failed: {e}")
+        print(f"Database connection test failed: {e}")
         return False
 
 def test_auth_log_insertion():
     """Test inserting auth log entries"""
-    print("\n🔍 Testing auth log insertion...")
+    print("\nTesting auth log insertion...")
     
     try:
         connection = create_connection()
@@ -79,15 +79,15 @@ def test_auth_log_insertion():
         result = cursor.fetchone()
         
         if result:
-            print("✅ Test auth log entry inserted successfully")
+            print("Test auth log entry inserted successfully")
             print(f"   - ID: {result[0]}")
             print(f"   - Timestamp: {result[1]}")
             print(f"   - Source IP: {result[2]}")
             print(f"   - Username: {result[3]}")
             print(f"   - Status: {result[5]}")
-            print("✅ Password stored as BLOB (encrypted field)")
+            print("Password stored as BLOB (encrypted field)")
         else:
-            print("❌ Test auth log entry not found")
+            print("Test auth log entry not found")
             return False
         
         cursor.close()
@@ -95,12 +95,12 @@ def test_auth_log_insertion():
         return True
         
     except Exception as e:
-        print(f"❌ Auth log insertion test failed: {e}")
+        print(f"Auth log insertion test failed: {e}")
         return False
 
 def test_auth_log_queries():
     """Test various queries on auth_logs table"""
-    print("\n🔍 Testing auth log queries...")
+    print("\nTesting auth log queries...")
     
     try:
         connection = create_connection()
@@ -109,7 +109,7 @@ def test_auth_log_queries():
         # Test count query
         cursor.execute("SELECT COUNT(*) FROM auth_logs")
         total_count = cursor.fetchone()[0]
-        print(f"✅ Total auth log entries: {total_count}")
+        print(f"Total auth log entries: {total_count}")
         
         # Test recent entries
         cursor.execute("""
@@ -119,17 +119,17 @@ def test_auth_log_queries():
             LIMIT 5
         """)
         recent_entries = cursor.fetchall()
-        print(f"✅ Recent entries retrieved: {len(recent_entries)}")
+        print(f"Recent entries retrieved: {len(recent_entries)}")
         
         # Test failed attempts
         cursor.execute("SELECT COUNT(*) FROM auth_logs WHERE status = 'failed'")
         failed_count = cursor.fetchone()[0]
-        print(f"✅ Failed attempts: {failed_count}")
+        print(f"Failed attempts: {failed_count}")
         
         # Test successful attempts
         cursor.execute("SELECT COUNT(*) FROM auth_logs WHERE status = 'success'")
         success_count = cursor.fetchone()[0]
-        print(f"✅ Successful attempts: {success_count}")
+        print(f"Successful attempts: {success_count}")
         
         # Test IP-based query
         cursor.execute("""
@@ -140,19 +140,19 @@ def test_auth_log_queries():
             LIMIT 3
         """)
         top_ips = cursor.fetchall()
-        print(f"✅ Top source IPs: {len(top_ips)}")
+        print(f"Top source IPs: {len(top_ips)}")
         
         cursor.close()
         connection.close()
         return True
         
     except Exception as e:
-        print(f"❌ Auth log queries test failed: {e}")
+        print(f"Auth log queries test failed: {e}")
         return False
 
 def test_simulator_integration():
     """Test the SSH log simulator integration"""
-    print("\n🔍 Testing SSH log simulator integration...")
+    print("\nTesting SSH log simulator integration...")
     
     try:
         # Run simulator for a short duration
@@ -164,11 +164,11 @@ def test_simulator_integration():
             time.sleep(0.5)
         
         simulator.cleanup()
-        print("✅ SSH log simulator integration test completed")
+        print("SSH log simulator integration test completed")
         return True
         
     except Exception as e:
-        print(f"❌ SSH log simulator integration test failed: {e}")
+        print(f"SSH log simulator integration test failed: {e}")
         return False
 
 def test_docker_environment():
@@ -180,20 +180,20 @@ def test_docker_environment():
     
     for var in required_env_vars:
         if os.getenv(var):
-            print(f"✅ {var}: {os.getenv(var)}")
+            print(f"{var}: {os.getenv(var)}")
         else:
-            print(f"⚠️  {var}: Not set (using default)")
+            print(f"{var}: Not set (using default)")
             missing_vars.append(var)
     
     if missing_vars:
-        print(f"⚠️  Missing environment variables: {missing_vars}")
+        print(f"Missing environment variables: {missing_vars}")
         print("   This is normal for local testing, Docker will provide these")
     
     return True
 
 def run_comprehensive_test():
     """Run all tests"""
-    print("🚀 Starting comprehensive auth.log database test...")
+    print("Starting comprehensive auth.log database test...")
     print("=" * 60)
     
     tests = [
@@ -208,26 +208,26 @@ def run_comprehensive_test():
     total = len(tests)
     
     for test_name, test_func in tests:
-        print(f"\n📋 Running: {test_name}")
+        print(f"\nRunning: {test_name}")
         print("-" * 40)
         
         try:
             if test_func():
                 passed += 1
-                print(f"✅ {test_name}: PASSED")
+                print(f"{test_name}: PASSED")
             else:
-                print(f"❌ {test_name}: FAILED")
+                print(f"{test_name}: FAILED")
         except Exception as e:
-            print(f"❌ {test_name}: ERROR - {e}")
+            print(f"{test_name}: ERROR - {e}")
     
     print("\n" + "=" * 60)
-    print(f"📊 Test Results: {passed}/{total} tests passed")
+    print(f"Test Results: {passed}/{total} tests passed")
     
     if passed == total:
-        print("🎉 All tests passed! Auth.log database functionality is working correctly.")
+        print("All tests passed! Auth.log database functionality is working correctly.")
         return True
     else:
-        print("⚠️  Some tests failed. Please check the errors above.")
+        print("Some tests failed. Please check the errors above.")
         return False
 
 if __name__ == "__main__":

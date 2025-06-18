@@ -42,7 +42,7 @@ def test_database_connection():
 
 def test_auth_log_insertion():
     """Test inserting auth log entries"""
-    print("\n🔍 Testing auth log insertion...")
+    print("\nTesting auth log insertion...")
     
     try:
         connection = create_connection()
@@ -94,7 +94,7 @@ def test_auth_log_insertion():
 
 def test_auth_log_queries():
     """Test various queries on auth_logs table"""
-    print("\n🔍 Testing auth log queries...")
+    print("\nTesting auth log queries...")
     
     try:
         connection = create_connection()

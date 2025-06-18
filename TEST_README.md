@@ -2,7 +2,7 @@
 
 This guide explains how to test the auth.log contents stored in the MySQL database using Docker.
 
-## 🚀 Quick Start
+## Start Guide
 
 ### 1. Run the Complete Test Suite
 ```bash
@@ -50,7 +50,7 @@ docker-compose logs -f ssh_simulator
 docker-compose stop ssh_simulator
 ```
 
-## 🧪 Test Components
+## Test major Components
 
 ### 1. Database Connection Test
 - Verifies MySQL connection
@@ -76,7 +76,7 @@ docker-compose stop ssh_simulator
 - Checks environment variables
 - Verifies Docker configuration
 
-## 📊 Database Schema
+## Database Schemas
 
 The `auth_logs` table structure:
 ```sql
@@ -92,7 +92,7 @@ CREATE TABLE auth_logs (
 );
 ```
 
-## 🔍 Useful Commands
+## Check Useful Commands
 
 ### Check Database Status
 ```bash
@@ -130,7 +130,7 @@ docker-compose down -v
 docker-compose down --rmi all
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting Issues
 
 ### Common Issues
 
@@ -147,7 +147,7 @@ docker-compose down --rmi all
    - Make sure build script is executable: `chmod +x build_and_test.sh`
    - Check Docker permissions
 
-### Debug Mode
+### Debug If needed
 ```bash
 # Run with verbose output
 docker-compose --verbose up
@@ -159,7 +159,7 @@ docker-compose ps
 docker-compose logs
 ```
 
-## 📈 Performance Testing
+## Test Performance
 
 ### Load Testing
 ```bash
@@ -180,17 +180,17 @@ EXPLAIN SELECT * FROM auth_logs WHERE status='failed';
 "
 ```
 
-## ✅ Success Criteria
+## Criteria to Test
 
 A successful test run should show:
-- ✅ All 5 test categories passed
-- ✅ Database connection established
-- ✅ Auth log entries inserted and retrieved
-- ✅ Encryption/decryption working
-- ✅ SSH simulator generating logs
-- ✅ Docker environment properly configured
+-  All 5 test categories passed
+-  Database connection established
+-  Auth log entries inserted and retrieved
+-  Encryption/decryption working
+-  SSH simulator generating logs
+-  Docker environment properly configured
 
-## 📝 Test Results
+## Test Results
 
 After running tests, you should see:
 - Total auth.log entries count

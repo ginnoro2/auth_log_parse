@@ -306,7 +306,7 @@ docker-compose stop
  ⠿ Container ssh_logs_db    Stopped
 ```
 
-## 🧹 Step 12: Clean Up (Optional)
+## Step 12: Clean Up (Optional)
 
 To completely remove all containers and data:
 

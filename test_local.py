@@ -18,30 +18,30 @@ def test_imports():
     
     try:
         from database import create_connection, create_database
-        print("✅ Database module imported successfully")
+        print("Database module imported successfully")
     except ImportError as e:
-        print(f"❌ Failed to import database module: {e}")
+        print(f"Failed to import database module: {e}")
         return False
     
     try:
         from encryption import encrypt_data, decrypt_data
-        print("✅ Encryption module imported successfully")
+        print("Encryption module imported successfully")
     except ImportError as e:
-        print(f"❌ Failed to import encryption module: {e}")
+        print(f"Failed to import encryption module: {e}")
         return False
     
     try:
         from ssh_log_simulator import SSHLogSimulator
-        print("✅ SSH log simulator imported successfully")
+        print("SSH log simulator imported successfully")
     except ImportError as e:
-        print(f"❌ Failed to import SSH log simulator: {e}")
+        print(f"Failed to import SSH log simulator: {e}")
         return False
     
     return True
 
 def test_encryption():
     """Test encryption/decryption functionality"""
-    print("\n🔍 Testing encryption functionality...")
+    print("\nTesting encryption functionality...")
     
     try:
         from encryption import encrypt_data, decrypt_data
@@ -51,30 +51,30 @@ def test_encryption():
         decrypted = decrypt_data(encrypted)
         
         if decrypted == test_password:
-            print("✅ Encryption/decryption working correctly")
+            print("Encryption/decryption working correctly")
             return True
         else:
-            print("❌ Encryption/decryption failed")
+            print("Encryption/decryption failed")
             return False
             
     except Exception as e:
-        print(f"❌ Encryption test failed: {e}")
+        print(f"Encryption test failed: {e}")
         return False
 
 def test_database_schema():
     """Test database schema creation"""
-    print("\n🔍 Testing database schema...")
+    print("\nTesting database schema...")
     
     try:
         from database import create_database
         
         # This will create the database and tables if they don't exist
         create_database()
-        print("✅ Database schema creation completed")
+        print("Database schema creation completed")
         return True
         
     except Exception as e:
-        print(f"❌ Database schema test failed: {e}")
+        print(f"Database schema test failed: {e}")
         return False
 
 def test_connection_without_db():
@@ -90,9 +90,9 @@ def test_connection_without_db():
         
         connection = create_connection()
         if connection is None:
-            print("✅ Database connection handles errors gracefully")
+            print("Database connection handles errors gracefully")
         else:
-            print("⚠️  Database connection succeeded with invalid host")
+            print("Database connection succeeded with invalid host")
         
         # Restore original environment
         if original_host:
@@ -103,12 +103,12 @@ def test_connection_without_db():
         return True
         
     except Exception as e:
-        print(f"❌ Database connection test failed: {e}")
+        print(f"Database connection test failed: {e}")
         return False
 
 def test_ssh_simulator_logic():
     """Test SSH simulator logic without database connection"""
-    print("\n🔍 Testing SSH simulator logic...")
+    print("\nTesting SSH simulator logic...")
     
     try:
         from ssh_log_simulator import SSHLogSimulator
@@ -119,9 +119,9 @@ def test_ssh_simulator_logic():
         test_ip = simulator.generate_random_ip()
         
         if test_ip and '.' in test_ip:
-            print(f"✅ IP generation working: {test_ip}")
+            print(f"IP generation working: {test_ip}")
         else:
-            print("❌ IP generation failed")
+            print("IP generation failed")
             return False
         
         # Test log entry generation logic
@@ -131,7 +131,7 @@ def test_ssh_simulator_logic():
         password = random.choice(simulator.passwords)
         status = 'success' if random.random() < 0.7 else 'failed'
         
-        print(f"✅ Log entry generation working:")
+        print(f"Log entry generation working:")
         print(f"   - Timestamp: {timestamp}")
         print(f"   - Source IP: {source_ip}")
         print(f"   - Username: {username}")
@@ -140,7 +140,7 @@ def test_ssh_simulator_logic():
         return True
         
     except Exception as e:
-        print(f"❌ SSH simulator logic test failed: {e}")
+        print(f"SSH simulator logic test failed: {e}")
         return False
 
 def test_docker_configuration():
@@ -158,13 +158,13 @@ def test_docker_configuration():
     
     for file in required_files:
         if os.path.exists(file):
-            print(f"✅ {file} exists")
+            print(f"{file} exists")
         else:
-            print(f"❌ {file} missing")
+            print(f"{file} missing")
             missing_files.append(file)
     
     if missing_files:
-        print(f"⚠️  Missing files: {missing_files}")
+        print(f"Missing files: {missing_files}")
         return False
     
     # Test Dockerfile syntax
@@ -173,20 +173,20 @@ def test_docker_configuration():
             dockerfile_content = f.read()
         
         if 'FROM python:' in dockerfile_content and 'WORKDIR /app' in dockerfile_content:
-            print("✅ Dockerfile syntax looks correct")
+            print("Dockerfile syntax looks correct")
         else:
-            print("❌ Dockerfile syntax issues detected")
+            print("Dockerfile syntax issues detected")
             return False
             
     except Exception as e:
-        print(f"❌ Error reading Dockerfile: {e}")
+        print(f"Error reading Dockerfile: {e}")
         return False
     
     return True
 
 def test_requirements():
     """Test requirements.txt"""
-    print("\n🔍 Testing requirements.txt...")
+    print("\nTesting requirements.txt...")
     
     try:
         with open('requirements.txt', 'r') as f:
@@ -203,24 +203,24 @@ def test_requirements():
         
         for package in required_packages:
             if any(package in req for req in requirements):
-                print(f"✅ {package} found in requirements")
+                print(f"{package} found in requirements")
             else:
-                print(f"❌ {package} missing from requirements")
+                print(f"{package} missing from requirements")
                 missing_packages.append(package)
         
         if missing_packages:
-            print(f"⚠️  Missing packages: {missing_packages}")
+            print(f"Missing packages: {missing_packages}")
             return False
         
         return True
         
     except Exception as e:
-        print(f"❌ Requirements test failed: {e}")
+        print(f"Requirements test failed: {e}")
         return False
 
 def run_local_tests():
     """Run all local tests"""
-    print("🚀 Starting local auth.log database tests...")
+    print("Starting local auth.log database tests...")
     print("=" * 60)
     
     tests = [
@@ -237,30 +237,30 @@ def run_local_tests():
     total = len(tests)
     
     for test_name, test_func in tests:
-        print(f"\n📋 Running: {test_name}")
+        print(f"\nRunning: {test_name}")
         print("-" * 40)
         
         try:
             if test_func():
                 passed += 1
-                print(f"✅ {test_name}: PASSED")
+                print(f"{test_name}: PASSED")
             else:
-                print(f"❌ {test_name}: FAILED")
+                print(f"{test_name}: FAILED")
         except Exception as e:
-            print(f"❌ {test_name}: ERROR - {e}")
+            print(f"{test_name}: ERROR - {e}")
     
     print("\n" + "=" * 60)
-    print(f"📊 Test Results: {passed}/{total} tests passed")
+    print(f"Test Results: {passed}/{total} tests passed")
     
     if passed == total:
-        print("🎉 All local tests passed!")
-        print("\n💡 Next steps:")
+        print("All local tests passed!")
+        print("\n Next steps:")
         print("   1. Start Docker Desktop")
         print("   2. Run: ./build_and_test.sh")
         print("   3. Or run: docker-compose up")
         return True
     else:
-        print("⚠️  Some tests failed. Please check the errors above.")
+        print(" Some tests failed. Please check the errors above.")
         return False
 
 if __name__ == "__main__":

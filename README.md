@@ -90,7 +90,7 @@ docker-compose up -d mysql
  ⠿ Container ssh_logs_db         Started
 ```
 
-## ⏳ Step 3: Wait for MySQL to be Ready
+## Step 3: Wait for MySQL to be Ready
 
 MySQL needs a few seconds to initialize. Let's wait and check its health:
 
@@ -165,7 +165,7 @@ docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; DESCRI
 +----+---------------------+-----------------+----------+---------+
 ```
 
-##Step 5: Start the SSH Log Simulator
+## Step 5: Start the SSH Log Simulator
 
 Now let's start the SSH log simulator to generate authentication logs:
 
@@ -186,7 +186,7 @@ docker-compose up -d ssh_simulator
  ⠿ Container ssh_simulator  Started
 ```
 
-##Step 6: Monitor Log Generation
+## Step 6: Monitor Log Generation
 
 Let's check if logs are being generated in real-time:
 
@@ -203,7 +203,7 @@ ssh_simulator  | [2025-06-12 17:56:33] SUCCESS: Login attempt from 212.31.134.16
 
 **Press Ctrl+C to stop following logs**
 
-##Step 7: Check Database Statistics
+## Step 7: Check Database Statistics
 
 Let's see how many log entries have been generated:
 
@@ -236,7 +236,7 @@ docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT
 +---------+-------+
 ```
 
-##Step 8: View Recent Log Entries
+## Step 8: View Recent Log Entries
 
 Let's look at the most recent authentication attempts:
 
@@ -257,7 +257,7 @@ docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT
 +------+---------------------+-----------------+----------+---------+
 ```
 
-##Step 9: Advanced Database Queries
+## Step 9: Advanced Database Queries
 
 Let's run some more detailed analysis queries:
 
@@ -276,7 +276,7 @@ docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT
 docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT username, COUNT(*) as attempts FROM auth_logs GROUP BY username ORDER BY attempts DESC;"
 ```
 
-##Step 10: Run Comprehensive Tests
+## Step 10: Run Comprehensive Tests
 
 Let's run the comprehensive test suite to verify everything is working:
 
@@ -291,7 +291,7 @@ docker-compose run --rm test_service
 - SSH simulator integration
 - Docker environment configuration
 
-##Step 11: Stop the Services
+## Step 11: Stop the Services
 
 When you're done testing, stop the services:
 
@@ -335,7 +335,7 @@ docker_mysql/
 └── keys/                 # Directory for encryption keys
 ```
 
-##Configuration Options
+## Configuration Options
 
 ### Environment Variables
 
@@ -359,7 +359,7 @@ Modify `ssh_log_simulator.py` to change simulation behavior:
 - **Usernames**: List of usernames to simulate
 - **Passwords**: List of passwords to simulate
 
-##Troubleshoot if required
+## Troubleshoot if required
 
 ### Common Issues
 
@@ -415,12 +415,12 @@ docker stats
 
 ### Real-time Monitoring
 
-**Watch log generation:**
+** Watch log generation:**
 ```bash
 watch -n 2 'docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT COUNT(*) FROM auth_logs;"'
 ```
 
-**Monitor failed attempts:**
+** Monitor failed attempts:**
 ```bash
 watch -n 5 'docker-compose exec mysql mysql -u root -pyour_password -e "USE ssh_logs; SELECT COUNT(*) FROM auth_logs WHERE status=\"failed\" AND timestamp > DATE_SUB(NOW(), INTERVAL 5 MINUTE);"'
 ```
